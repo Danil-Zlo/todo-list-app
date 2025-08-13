@@ -1,9 +1,13 @@
 package repository
 
-import "github.com/jmoiron/sqlx"
+import (
+	"github.com/Danil-Zlo/todo-list-app"
+	"github.com/jmoiron/sqlx"
+)
 
 // Интерфесы для работы с бизнес логикой
 type Authorization interface {
+	CreateUser(user todo.User) (int, error)
 }
 
 type TodoList interface {
@@ -18,6 +22,9 @@ type Repository struct {
 	TodoItem
 }
 
+// конструктор
 func NewRepository(db *sqlx.DB) *Repository {
-	return &Repository{}
+	return &Repository{
+		Authorization: NewAuthPostgres(db),
+	}
 }
