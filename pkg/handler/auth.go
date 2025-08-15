@@ -5,6 +5,7 @@ import (
 
 	"github.com/Danil-Zlo/todo-list-app"
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 )
 
 func (h *Handler) signUp(c *gin.Context) {
@@ -19,7 +20,7 @@ func (h *Handler) signUp(c *gin.Context) {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
 		return
 	}
-
+	logrus.Infof("new user with id %d", id)
 	c.JSON(http.StatusOK, map[string]interface{}{
 		"id": id,
 	})
