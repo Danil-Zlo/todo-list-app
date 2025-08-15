@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/jmoiron/sqlx"
+	"github.com/sirupsen/logrus"
 )
 
 const (
@@ -30,11 +31,13 @@ func NewPostgresDB(cfg Config) (*sqlx.DB, error) {
 	if err != nil {
 		return nil, err
 	}
+	logrus.Infoln("successful open db")
 
 	err = db.Ping()
 	if err != nil {
 		return nil, err
 	}
+	logrus.Infoln("successful ping db")
 
 	return db, nil
 }
